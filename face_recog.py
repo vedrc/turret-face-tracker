@@ -65,7 +65,3 @@ while True:
 
 video_capture.release()
 cv.destroyAllWindows()
-
-
-
-
