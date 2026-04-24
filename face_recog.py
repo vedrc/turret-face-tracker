@@ -40,9 +40,9 @@ while True:
 
     if results.face_landmarks:
         face_landmarks = results.face_landmarks[0]
-        nose_tip = face_landmarks[10]
-        center_x = int(nose_tip.x * iw)
-        center_y = int(nose_tip.y * ih)
+        forehead = face_landmarks[10]
+        center_x = int(forehead.x * iw)
+        center_y = int(forehead.y * ih)
 
         frame_center_x = iw / 2
         frame_center_y = ih / 2
