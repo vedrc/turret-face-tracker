@@ -8,6 +8,7 @@ from mediapipe.tasks.python import vision
 import sys
 import imutils
 import math
+import serial
 
 base_options = python.BaseOptions(model_asset_path='face_landmarker.task')
 options = vision.FaceLandmarkerOptions(
@@ -16,6 +17,7 @@ options = vision.FaceLandmarkerOptions(
     output_facial_transformation_matrixes=False,
     num_faces=1)
 detector = vision.FaceLandmarker.create_from_options(options)
+arduino = serial.Serial(port='COM4', baudrate=115200, timeout=.1) 
 video_capture = cv.VideoCapture(0)
 
 KNOWN_DISTANCE = 38.4 # cm
@@ -56,6 +58,9 @@ while True:
         cv.circle(frame, (int(center_x), int(center_y)), 1, (0,0,255), 2)
 
     cv.imshow('Face Detection', frame)
+
+    data = f"X{angle_x}Y{angle_y}\n"
+    arduino.write(bytes(data, 'utf-8'))
 
     print("Angle x: ", angle_x, " deg. Angle y: ", angle_y, " deg.")
 
